@@ -1,7 +1,7 @@
 {
-  "name": "cell-two-git-workshop",
+  "name": "pixel-monster",
   "version": "0.1",
-  "description": "A sample game for a git workshop",
+  "description": "Pixel Monster: A game about changing color",
   "main": "src/main.ts",
   "author": "Joe Bustamante",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "dev": "webpack-dev-server"
   },
   "dependencies": {
-    "phaser": "^3.16.1"
+    "phaser": "^3.17.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.6.0",
