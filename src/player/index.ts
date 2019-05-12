@@ -13,7 +13,6 @@ export const createPlayer = (scene: Phaser.Scene, x: number, y: number): Player 
     .setOrigin(0, 0).setInteractive();
 
   scene.physics.add.existing(playerGameObject, false);
-
   const playerPhysicsBody = playerGameObject.body as Phaser.Physics.Arcade.Body;
 
   return {

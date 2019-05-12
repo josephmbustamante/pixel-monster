@@ -12,7 +12,9 @@ export interface Platform {
 export const createPlatform = (scene: Phaser.Scene, x: number, y: number) => {
   const platform = scene.add.rectangle(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT, PLATFORM_COLOR)
     .setOrigin(0, 0).setInteractive();
-  const staticPhysicsBody = scene.physics.add.existing(platform, true);
+
+  scene.physics.add.existing(platform, true);
+  const staticPhysicsBody = platform.body as Phaser.Physics.Arcade.StaticBody;
 
   return {
     gameObject: platform,
