@@ -66,11 +66,4 @@ export class GameScene extends Phaser.Scene {
     return group;
   }
 
-  private getGameWidth() {
-    return window.innerWidth;
-  }
-
-  private getGameHeight() {
-    return window.innerHeight;
-  }
 }
