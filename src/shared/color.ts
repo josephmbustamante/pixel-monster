@@ -5,6 +5,10 @@ export interface Color {
   b: number;
 }
 
+const parseStringIntoHex = (hexString: string): number => {
+  return parseInt(hexString, 16);
+};
+
 /**
  * This function takes in a single RGB value between 0 and 255, and converts
  * it to a hexadecimal string.
@@ -32,7 +36,7 @@ const convertRgbValueToHexString = (rgb: number): string => {
 export const convertRgbValueToHex = (rgb: number): number => {
   const hexString = convertRgbValueToHexString(rgb);
 
-  return parseInt(hexString, 16);
+  return parseStringIntoHex(hexString);
 };
 
 /**
@@ -45,7 +49,7 @@ export const convertFullColorToHex = (color: Color): number => {
   const green = convertRgbValueToHexString(color.g);
   const blue = convertRgbValueToHexString(color.b);
 
-  const hexString = `${red}${green}${blue}`;
+  const hexString = red + green + blue;
 
-  return parseInt(hexString);
+  return parseStringIntoHex(hexString);
 };
