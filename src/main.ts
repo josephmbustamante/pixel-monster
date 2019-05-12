@@ -3,7 +3,7 @@ import * as Shared from './shared';
 import Scenes from './scenes';
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
-  title: 'Cell Two Workshop Game',
+  title: 'Pixel Monster',
 
   type: Phaser.AUTO,
 
