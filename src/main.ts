@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import Scenes from './scenes';
 
-const gameConfig: GameConfig = {
+const gameConfig: Phaser.Types.Core.GameConfig = {
   title: 'Cell Two Workshop Game',
 
   type: Phaser.AUTO,
