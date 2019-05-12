@@ -1,3 +1,4 @@
+import { createPlayer, Player } from '../player';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -6,8 +7,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class GameScene extends Phaser.Scene {
-  private player: Phaser.GameObjects.Rectangle;
-  private body: Phaser.Physics.Arcade.Body;
+  private player: Player;
 
   private platforms: Phaser.Physics.Arcade.StaticGroup;
   private platformHeight = 50;
@@ -26,28 +26,27 @@ export class GameScene extends Phaser.Scene {
   }
 
   public create() {
-    this.player = this.add.rectangle(this.getGameWidth() / 2, this.getGameHeight() - this.platformHeight * 2, 50, this.platformHeight, 0x00ff00)
-      .setOrigin(0, 0).setInteractive();
-    this.physics.add.existing(this.player, false);
-    this.body = this.player.body as Phaser.Physics.Arcade.Body;
-    this.body.setGravityY(this.gravity);
+    this.player = createPlayer(this, this.getGameWidth() / 2, this.getGameHeight() - this.platformHeight * 2);
+
+    this.player.physicsBody.setGravityY(this.gravity);
     // this.body.setMaxVelocity(this.playerVelocity, this.maxVelocityY);
-    this.body.setDragX(this.drag);
+    this.player.physicsBody.setDragX(this.drag);
 
     this.platforms = this.createPlatforms();
-    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.player.gameObject, this.platforms);
   }
 
   public update() {
     const cursorKeys = this.input.keyboard.createCursorKeys();
-    if (cursorKeys.up.isDown && this.body.onFloor()) {
-      this.body.setVelocityY(-this.jumpForce);
+
+    if (cursorKeys.up.isDown && this.player.physicsBody.onFloor()) {
+      this.player.physicsBody.setVelocityY(-this.jumpForce);
     }
     if (cursorKeys.right.isDown) {
-      this.body.setVelocityX(this.playerVelocity);
+      this.player.physicsBody.setVelocityX(this.playerVelocity);
     }
     if (cursorKeys.left.isDown) {
-      this.body.setVelocityX(-this.playerVelocity);
+      this.player.physicsBody.setVelocityX(-this.playerVelocity);
     }
   }
 
