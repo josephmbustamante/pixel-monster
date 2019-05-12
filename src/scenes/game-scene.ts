@@ -44,26 +44,32 @@ export class GameScene extends Phaser.Scene {
     if (cursorKeys.up.isDown && this.player.physicsBody.onFloor()) {
       this.player.physicsBody.setVelocityY(-this.jumpForce);
     }
-    if (cursorKeys.right.isDown) {
+    if (cursorKeys.right.isDown && !this.player.physicsBody.onWall()) {
+      console.log(this.player.physicsBody.onWall());
       this.player.physicsBody.setVelocityX(this.playerVelocity);
     }
-    if (cursorKeys.left.isDown) {
+    if (cursorKeys.left.isDown && !this.player.physicsBody.onWall()) {
+      console.log(this.player.physicsBody.onWall());
       this.player.physicsBody.setVelocityX(-this.playerVelocity);
     }
   }
 
   private createPlatforms() {
-    const ceiling = _.times(20, (index) => createPlatform(this, 50 * index, 0));
-    const floor = _.times(20, (index) => createPlatform(this, 50 * index, 950));
+    const ceiling = _.times(40, (index) => createPlatform(this, 50 * index, 0));
+    const floor = _.times(40, (index) => createPlatform(this, 50 * index, 950));
 
     const leftWall = _.times(18, (index) => createPlatform(this, 0, 50 * (index + 1) ));
-    const rightWall = _.times(18, (index) => createPlatform(this, 950, 50 * (index + 1) ));
+    const rightWall = _.times(18, (index) => createPlatform(this, 1950, 50 * (index + 1) ));
 
-    const platforms = [...ceiling, ...floor, ...leftWall, ...rightWall];
+    const platform1 = _.times(8, (index) => createPlatform(this, 350 + 50 * index, 200));
+    const platform2 = _.times(12, (index) => createPlatform(this, 750 + 50 * index, 400));
+    const platform3 = _.times(8, (index) => createPlatform(this, 300 + 50 * index, 600));
+    const platform4 = _.times(6, (index) => createPlatform(this, 500 + 50 * index, 800));
+
+    const platforms = [...ceiling, ...floor, ...leftWall, ...rightWall, ...platform1, ...platform2, ...platform3, ...platform4];
 
     const group = this.physics.add.staticGroup(platforms.map((platform) => platform.gameObject));
 
     return group;
   }
-
 }
