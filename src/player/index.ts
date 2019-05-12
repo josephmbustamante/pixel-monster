@@ -1,7 +1,7 @@
+import * as Shared from '../shared';
 
 const PLAYER_WIDTH = 50;
 const PLAYER_HEIGHT = 50;
-const PLAYER_COLOR = 0x00ff00;
 
 export interface Player {
   gameObject: Phaser.GameObjects.Rectangle;
@@ -9,7 +9,7 @@ export interface Player {
 }
 
 export const createPlayer = (scene: Phaser.Scene, x: number, y: number): Player => {
-  const playerGameObject = scene.add.rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_COLOR)
+  const playerGameObject = scene.add.rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, Shared.PLAYER_STARTING_COLOR_HEX)
     .setOrigin(0, 0).setInteractive();
 
   scene.physics.add.existing(playerGameObject, false);

@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import * as Shared from './shared';
 import Scenes from './scenes';
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
@@ -19,7 +20,7 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
   },
 
   parent: 'game',
-  backgroundColor: '#000000',
+  backgroundColor: Shared.BACKGROUND_COLOR_HEX,
 };
 
 export const game = new Phaser.Game(gameConfig);
