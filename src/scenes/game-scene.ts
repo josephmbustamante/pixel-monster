@@ -1,4 +1,6 @@
 import { createPlayer, Player } from '../player';
+import { createPlatform } from '../platforms';
+import * as _ from 'lodash';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -26,7 +28,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   public create() {
-    this.player = createPlayer(this, this.getGameWidth() / 2, this.getGameHeight() - this.platformHeight * 2);
+    this.player = createPlayer(this, 100, 100);
 
     this.player.physicsBody.setGravityY(this.gravity);
     // this.body.setMaxVelocity(this.playerVelocity, this.maxVelocityY);
@@ -51,28 +53,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   private createPlatforms() {
-    const floor = this.add.rectangle(0, this.getGameHeight() - this.platformHeight, this.getGameWidth(), this.platformHeight, 0xff0000)
-      .setOrigin(0, 0).setInteractive();
-    this.physics.add.existing(floor, true);
+    const ceiling = _.times(20, (index) => createPlatform(this, 50 * index, 0));
+    const floor = _.times(20, (index) => createPlatform(this, 50 * index, 950));
 
-    const ceiling = this.add.rectangle(0, 0, this.getGameWidth(), this.platformHeight, 0xff0000)
-      .setOrigin(0, 0).setInteractive();
-    this.physics.add.existing(ceiling, true);
+    const leftWall = _.times(18, (index) => createPlatform(this, 0, 50 * (index + 1) ));
+    const rightWall = _.times(18, (index) => createPlatform(this, 950, 50 * (index + 1) ));
 
-    const rightWall = this.add.rectangle(this.getGameWidth() - this.platformHeight, this.platformHeight, this.platformHeight, this.getGameHeight() - this.platformHeight * 2, 0xff0000)
-      .setOrigin(0, 0).setInteractive();
-    this.physics.add.existing(rightWall, true);
+    const platforms = [...ceiling, ...floor, ...leftWall, ...rightWall];
 
-    const leftWall = this.add.rectangle(0, this.platformHeight, this.platformHeight, this.getGameHeight() - this.platformHeight * 2, 0xff0000)
-      .setOrigin(0, 0).setInteractive();
-    this.physics.add.existing(leftWall, true);
-
-    const group = this.physics.add.staticGroup([
-      floor,
-      ceiling,
-      rightWall,
-      leftWall,
-    ]);
+    const group = this.physics.add.staticGroup(platforms.map((platform) => platform.gameObject));
 
     return group;
   }
