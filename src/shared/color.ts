@@ -53,3 +53,13 @@ export const convertFullColorToHex = (color: Color): number => {
 
   return parseStringIntoHex(hexString);
 };
+
+interface Colors {
+  [k: string]: Color;
+}
+
+export const Colors: Colors = {
+  red: { r: 255, g: 0, b: 0 },
+  green: { r: 0, g: 255, b: 0 },
+  blue: { r: 0, g: 0, b: 255 },
+};
