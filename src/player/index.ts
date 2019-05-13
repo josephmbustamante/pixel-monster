@@ -26,7 +26,7 @@ export class Player extends Phaser.GameObjects.Rectangle {
     this.setInteractive();
 
     scene.add.existing(this);
-    scene.physics.add.existing(this, true);
+    scene.physics.add.existing(this, false);
   }
 
   public addColor = (newColor: Shared.Color) => {
