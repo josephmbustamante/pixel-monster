@@ -29,11 +29,11 @@ export class GameScene extends Phaser.Scene {
   public create() {
     this.player = createPlayer(this, 100, 100);
 
-    this.player.physicsBody.setGravityY(this.gravity);
-    this.player.physicsBody.setDragX(this.drag);
+    this.player.body.setGravityY(this.gravity);
+    this.player.body.setDragX(this.drag);
 
     this.platforms = this.createPlatforms();
-    this.physics.add.collider(this.player.gameObject, this.platforms, (player, platform) => {
+    this.physics.add.collider(this.player, this.platforms, (player, platform) => {
       // todo
     });
   }
@@ -41,14 +41,14 @@ export class GameScene extends Phaser.Scene {
   public update() {
     const cursorKeys = this.input.keyboard.createCursorKeys();
 
-    if (cursorKeys.up.isDown && this.player.physicsBody.onFloor()) {
-      this.player.physicsBody.setVelocityY(-this.jumpForce);
+    if (cursorKeys.up.isDown && this.player.body.onFloor()) {
+      this.player.body.setVelocityY(-this.jumpForce);
     }
-    if (cursorKeys.right.isDown && !this.player.physicsBody.onWall()) {
-      this.player.physicsBody.setVelocityX(this.playerVelocity);
+    if (cursorKeys.right.isDown && !this.player.body.onWall()) {
+      this.player.body.setVelocityX(this.playerVelocity);
     }
-    if (cursorKeys.left.isDown && !this.player.physicsBody.onWall()) {
-      this.player.physicsBody.setVelocityX(-this.playerVelocity);
+    if (cursorKeys.left.isDown && !this.player.body.onWall()) {
+      this.player.body.setVelocityX(-this.playerVelocity);
     }
   }
 

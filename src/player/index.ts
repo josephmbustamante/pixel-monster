@@ -9,8 +9,9 @@ export const createPlayer = (scene: Phaser.Scene, x: number, y: number): Player 
   return player;
 };
 
-class Player extends Phaser.GameObjects.Rectangle {
-  public body: Phaser.Physics.Arcade.StaticBody;
+// TODO: could we not export this somehow?
+export class Player extends Phaser.GameObjects.Rectangle {
+  public body: Phaser.Physics.Arcade.Body;
 
   private color: Shared.Color;
 
