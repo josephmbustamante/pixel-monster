@@ -54,12 +54,22 @@ export const convertFullColorToHex = (color: Color): number => {
   return parseStringIntoHex(hexString);
 };
 
-interface Colors {
-  [k: string]: Color;
+enum KnownColorNames {
+  Red = 'Red',
+  Green = 'Green',
+  Blue = 'Blue',
+  Black = 'Black',
+  Gray = 'Gray',
+  White = 'White',
 }
 
-export const Colors: Colors = {
-  red: { r: 255, g: 0, b: 0 },
-  green: { r: 0, g: 255, b: 0 },
-  blue: { r: 0, g: 0, b: 255 },
+type Colors = { [k in KnownColorNames]: Color };
+
+export const KnownColors: Colors = {
+  Red: { r: 255, g: 0, b: 0 },
+  Green: { r: 0, g: 255, b: 0 },
+  Blue: { r: 0, g: 0, b: 255 },
+  Black: { r: 0, g: 0, b: 0 },
+  Gray: { r: 128, g: 128, b: 128 },
+  White: { r: 255, g: 255, b: 255 },
 };
