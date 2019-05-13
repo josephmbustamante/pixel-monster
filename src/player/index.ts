@@ -1,10 +1,7 @@
 import * as Shared from '../shared';
 
 export const createPlayer = (scene: Phaser.Scene, x: number, y: number): Player => {
-  const playerColor = { r: 0, g: 0, b: 0 };
-  const playerColorHex = Shared.convertFullColorToHex(playerColor);
-
-  const player = new Player(scene, x, y, playerColorHex);
+  const player = new Player(scene, x, y, Shared.KnownColors.Black);
 
   return player;
 };
@@ -19,8 +16,10 @@ export class Player extends Phaser.GameObjects.Rectangle {
   // should change the player's color
   private colorWeight = .15;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, colorHex: number) {
-    super(scene, x, y, Shared.TILE_WIDTH, Shared.TILE_HEIGHT, colorHex);
+  constructor(scene: Phaser.Scene, x: number, y: number, color: Shared.Color) {
+    super(scene, x, y, Shared.TILE_WIDTH, Shared.TILE_HEIGHT);
+
+    this.changeColor(color);
 
     this.setOrigin(0, 0);
     this.setInteractive();
@@ -38,6 +37,7 @@ export class Player extends Phaser.GameObjects.Rectangle {
   }
 
   private changeColor = (newColor: Shared.Color) => {
+    this.color = newColor;
     this.setFillStyle(Shared.convertFullColorToHex(newColor));
   }
 }

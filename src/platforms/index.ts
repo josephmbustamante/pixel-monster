@@ -1,9 +1,8 @@
 import * as Shared from '../shared';
 
 export const createPlatform = (scene: Phaser.Scene, x: number, y: number) => {
-  const colorHex = Shared.convertFullColorToHex(Shared.KnownColors.Gray);
+  const platform = new Platform(scene, x, y, Shared.KnownColors.Green);
 
-  const platform = new Platform(scene, x, y, colorHex);
   return platform;
 };
 
@@ -13,10 +12,13 @@ export const createPlatform = (scene: Phaser.Scene, x: number, y: number) => {
 class Platform extends Phaser.GameObjects.Rectangle {
   public body: Phaser.Physics.Arcade.StaticBody;
 
+  private color: Shared.Color;
   private hasColor: boolean;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, colorHex: number) {
-    super(scene, x, y, Shared.TILE_WIDTH, Shared.TILE_HEIGHT, colorHex);
+  constructor(scene: Phaser.Scene, x: number, y: number, color: Shared.Color) {
+    super(scene, x, y, Shared.TILE_WIDTH, Shared.TILE_HEIGHT);
+
+    this.changeColor(color);
 
     this.setOrigin(0, 0);
     this.setInteractive();
@@ -24,7 +26,7 @@ class Platform extends Phaser.GameObjects.Rectangle {
     scene.add.existing(this);
     scene.physics.add.existing(this, true);
 
-    this.hasColor = false;
+    this.hasColor = true;
   }
 
   public removeColor() {
@@ -36,6 +38,7 @@ class Platform extends Phaser.GameObjects.Rectangle {
   }
 
   private changeColor = (newColor: Shared.Color) => {
+    this.color = newColor;
     this.setFillStyle(Shared.convertFullColorToHex(newColor));
   }
 }
