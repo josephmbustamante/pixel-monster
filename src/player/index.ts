@@ -32,6 +32,7 @@ export const createPlayer = (scene: Phaser.Scene, x: number, y: number): Player 
     playerGameObject.setFillStyle(Shared.convertFullColorToHex(playerColor));
   };
 
+
   return {
     color: playerColor,
     addColor,

@@ -12,7 +12,6 @@ export class GameScene extends Phaser.Scene {
   private player: Player;
 
   private platforms: Phaser.Physics.Arcade.StaticGroup;
-  private platformHeight = 50;
 
   private playerVelocity = 500;
   private jumpForce = 1200;
@@ -31,11 +30,12 @@ export class GameScene extends Phaser.Scene {
     this.player = createPlayer(this, 100, 100);
 
     this.player.physicsBody.setGravityY(this.gravity);
-    // this.body.setMaxVelocity(this.playerVelocity, this.maxVelocityY);
     this.player.physicsBody.setDragX(this.drag);
 
     this.platforms = this.createPlatforms();
-    this.physics.add.collider(this.player.gameObject, this.platforms);
+    this.physics.add.collider(this.player.gameObject, this.platforms, (player, platform) => {
+      // todo
+    });
   }
 
   public update() {
@@ -45,11 +45,9 @@ export class GameScene extends Phaser.Scene {
       this.player.physicsBody.setVelocityY(-this.jumpForce);
     }
     if (cursorKeys.right.isDown && !this.player.physicsBody.onWall()) {
-      console.log(this.player.physicsBody.onWall());
       this.player.physicsBody.setVelocityX(this.playerVelocity);
     }
     if (cursorKeys.left.isDown && !this.player.physicsBody.onWall()) {
-      console.log(this.player.physicsBody.onWall());
       this.player.physicsBody.setVelocityX(-this.playerVelocity);
     }
   }
@@ -68,7 +66,7 @@ export class GameScene extends Phaser.Scene {
 
     const platforms = [...ceiling, ...floor, ...leftWall, ...rightWall, ...platform1, ...platform2, ...platform3, ...platform4];
 
-    const group = this.physics.add.staticGroup(platforms.map((platform) => platform.gameObject));
+    const group = this.physics.add.staticGroup(platforms.map((platform) => platform));
 
     return group;
   }

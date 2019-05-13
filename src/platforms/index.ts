@@ -18,6 +18,9 @@ export const createPlatform = (scene: Phaser.Scene, x: number, y: number) => {
   return platform;
 };
 
+// The reason that a platform uses class notation and isn't more functional is because Phaser passes the underlying
+// GameObject class through when a collision occurs, so making a new class that extends a GameObject ensures that we
+// will have all of our custom information and functions on collisions.
 class Platform extends Phaser.GameObjects.Rectangle {
   public body: Phaser.Physics.Arcade.StaticBody;
 
