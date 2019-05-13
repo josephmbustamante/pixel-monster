@@ -28,12 +28,16 @@ export class Player extends Phaser.GameObjects.Rectangle {
     scene.physics.add.existing(this, false);
   }
 
-  public addColor = (newColor: Shared.Color) => {
-    this.color.r = this.color.r + (newColor.r - this.color.r) * this.colorWeight;
-    this.color.g = this.color.g + (newColor.g - this.color.g) * this.colorWeight;
-    this.color.b = this.color.b + (newColor.b - this.color.b) * this.colorWeight;
+  public addColor = (colorToAdd: Shared.Color) => {
+    const currentColor = this.color;
 
-    this.changeColor(this.color);
+    const newColor = {
+      r: currentColor.r + (colorToAdd.r - currentColor.r) * this.colorWeight,
+      g: currentColor.g + (colorToAdd.g - currentColor.g) * this.colorWeight,
+      b: currentColor.b + (colorToAdd.b - currentColor.b) * this.colorWeight,
+    };
+
+    this.changeColor(newColor);
   }
 
   private changeColor = (newColor: Shared.Color) => {

@@ -19,7 +19,9 @@ const convertRgbValueToHexString = (rgb: number): string => {
   if (rgb > 255 || rgb < 0) {
     throw new Error(`RGB values can only range between 0 and 255, but got a value that was ${rgb}`);
   }
-  const hex = rgb.toString(16);
+
+  const rgbInteger = Math.ceil(rgb);
+  const hex = rgbInteger.toString(16);
 
   // Append a zero if the generated hex string has only one character.
   return hex.length < 2
