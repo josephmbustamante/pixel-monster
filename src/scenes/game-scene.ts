@@ -34,7 +34,7 @@ export class GameScene extends Phaser.Scene {
 
     this.platforms = this.createPlatforms();
     this.physics.add.collider(this.player, this.platforms, (player: Player, platform: Platform) => {
-      if (platform.platformHasColor) {
+      if (platform.platformHasColor()) {
         const platformColor = platform.getColor();
         player.addColor(platformColor);
         platform.removeColor();

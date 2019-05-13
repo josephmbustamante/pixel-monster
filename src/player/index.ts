@@ -38,6 +38,7 @@ export class Player extends Phaser.GameObjects.Rectangle {
 
   private changeColor = (newColor: Shared.Color) => {
     this.color = newColor;
-    this.setFillStyle(Shared.convertFullColorToHex(newColor));
+    const colorHex = Shared.convertFullColorToHex(newColor);
+    this.setFillStyle(colorHex);
   }
 }
