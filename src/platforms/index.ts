@@ -1,7 +1,7 @@
 import * as Shared from '../shared';
 
 export const createPlatform = (scene: Phaser.Scene, x: number, y: number) => {
-  const platform = new Platform(scene, x, y, Shared.KnownColors.Green);
+  const platform = new Platform(scene, x, y, false, Shared.KnownColors.Green);
 
   return platform;
 };
@@ -13,9 +13,11 @@ class Platform extends Phaser.GameObjects.Rectangle {
   public body: Phaser.Physics.Arcade.StaticBody;
 
   private color: Shared.Color;
-  private hasColor: boolean;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, color: Shared.Color) {
+  // Whether this tile will transfer color when it is first touched
+  private isExhausted: boolean;
+
+  constructor(scene: Phaser.Scene, x: number, y: number, isExhausted: boolean, color: Shared.Color) {
     super(scene, x, y, Shared.TILE_WIDTH, Shared.TILE_HEIGHT);
 
     this.changeColor(color);
@@ -26,14 +28,14 @@ class Platform extends Phaser.GameObjects.Rectangle {
     scene.add.existing(this);
     scene.physics.add.existing(this, true);
 
-    this.hasColor = true;
+    this.isExhausted = isExhausted;
   }
 
   public removeColor() {
-    if (this.hasColor) {
+    if (!this.isExhausted) {
       this.changeColor(Shared.KnownColors.Gray);
 
-      this.hasColor = false;
+      this.isExhausted = true;
     }
   }
 
