@@ -1,8 +1,7 @@
 import * as Shared from '../shared';
 
 export const createPlatform = (scene: Phaser.Scene, x: number, y: number) => {
-  const color = { r: 128, g: 128, b: 128 };
-  const colorHex = Shared.convertFullColorToHex(color);
+  const colorHex = Shared.convertFullColorToHex(Shared.KnownColors.Gray);
 
   const platform = new Platform(scene, x, y, colorHex);
   return platform;
@@ -25,6 +24,18 @@ class Platform extends Phaser.GameObjects.Rectangle {
     scene.add.existing(this);
     scene.physics.add.existing(this, true);
 
-    this.hasColor = true;
+    this.hasColor = false;
+  }
+
+  public removeColor() {
+    if (this.hasColor) {
+      this.changeColor(Shared.KnownColors.Gray);
+
+      this.hasColor = false;
+    }
+  }
+
+  private changeColor = (newColor: Shared.Color) => {
+    this.setFillStyle(Shared.convertFullColorToHex(newColor));
   }
 }
