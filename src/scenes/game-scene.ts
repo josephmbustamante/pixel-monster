@@ -1,5 +1,5 @@
 import { createPlayer, Player } from '../player';
-import { createPlatform } from '../platforms';
+import { createPlatform, Platform } from '../platforms';
 import * as _ from 'lodash';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -33,8 +33,12 @@ export class GameScene extends Phaser.Scene {
     this.player.body.setDragX(this.drag);
 
     this.platforms = this.createPlatforms();
-    this.physics.add.collider(this.player, this.platforms, (player, platform) => {
-      // todo
+    this.physics.add.collider(this.player, this.platforms, (player: Player, platform: Platform) => {
+      if (platform.platformHasColor) {
+        const platformColor = platform.getColor();
+        player.addColor(platformColor);
+        platform.removeColor();
+      }
     });
   }
 
