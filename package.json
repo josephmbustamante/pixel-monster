@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.126",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "phaser": "^3.17.0"
   },
   "devDependencies": {
